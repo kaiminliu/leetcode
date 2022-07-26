@@ -1,0 +1,50 @@
+    class Solution {
+        public int[] twoSum(int[] nums, int target) {
+
+            // 穷举法
+//            return enumeration(nums,target);
+            // 优化 hashtable
+            return hashtable(nums, target);
+        }
+
+        /**
+         * 优化 hashtable
+         * 1.将nums按<num,index> 存入hash表
+         * 2.从hashtable中获取对应index即可
+         */
+        public int[] hashtable(int[] nums, int target){
+            Map<Integer, Integer> hashtable = new HashMap<>();
+
+            for (int i = 0; i < nums.length; i++){
+                if (hashtable.containsKey(target - nums[i])){
+                    return new int[]{hashtable.get(target - nums[i]), i};
+                }
+                hashtable.put(nums[i],i);
+            }
+
+            return new int[]{};
+        }
+
+
+        /**
+         * 我的思路(穷举法)：外层遍历：遍历nums数组，（通过 算出需要的值value = target-num[i]），内层遍历：再次遍历如果有与value相同的就返回
+         */
+        public int[] enumeration(int[] nums, int target){
+            // 时间复杂度 O(n^2)
+            int value;
+            int len = nums.length;
+            // 外层循环，遍历nums
+            for (int i = 0; i < len; i++) {
+                value = target - nums[i];
+                for (int j = i + 1; j < len; j++) {
+                    if (value == nums[j]) {
+                        return new int[]{i,j};
+                    }
+                }
+            }
+            return new int[0];
+        }
+    }
+
+//runtime:2 ms
+//memory:38.8 MB

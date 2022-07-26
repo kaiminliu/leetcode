@@ -44,33 +44,38 @@ package leetcode.editor.cn;
 //
 // Related Topics 数组 哈希表 👍 14864 👎 0
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TwoSum{
     public static void main(String[] args) {
         Solution solution = new TwoSum().new Solution();
-
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[] twoSum(int[] nums, int target) {
-            return enumeration(nums, target);
+            return answer(nums, target);
         }
-    }
-    public int[] enumeration(int[] nums, int target){
-        // 时间复杂度 O(n^2)
-        int value;
-        int len = nums.length;
-        // 外层循环，遍历nums
-        for (int i = 0; i < len; i++) {
-            value = target - nums[i];
-            for (int j = i + 1; j < len; j++) {
-                if (value == nums[j]) {
-                    return new int[]{i,j};
+
+        public int[] answer(int[] nums, int target) {
+            // map key存数组的值，value存数组的下标
+            Map<Integer, Integer>  map = new HashMap<>();
+            // 1.遍历nums
+            for (int i = 0; i < nums.length; i++) {
+                int num = nums[i];
+                // 2.map中是否含有 num 对应的 补数
+                if (map.containsKey(target - num)) {
+                    // 2.1 含有表示找到了，返回两互补数的下标
+                    return new int[] { i, map.get(target - num)};
                 }
+                // 2.2 没有表示没找到，将num作为新元素添加到map，map的key可以对相同num进行去重
+                map.put(num, i);
             }
+            return new int[2];
         }
-        return new int[0];
     }
+
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

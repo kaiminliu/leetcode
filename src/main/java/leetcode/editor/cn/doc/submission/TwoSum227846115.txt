@@ -1,0 +1,29 @@
+    class Solution {
+        public int[] twoSum(int[] nums, int target) {
+
+            // 穷举法
+            return enumeration(nums,target);
+        }
+
+
+
+        public int[] enumeration(int[] nums, int target){
+            // 我的思路(穷举法)：外层遍历：遍历nums数组，（通过 算出需要的值value = target-num[i]），内层遍历：再次遍历如果有与value相同的就返回
+            // 时间复杂度 O(n^2)
+            int value;
+            int len = nums.length;
+            // 外层循环，遍历nums
+            for (int i = 0; i < len; i++) {
+                value = target - nums[i];
+                for (int j = i + 1; j < len; j++) {
+                    if (value == nums[j]) {
+                        return new int[]{i,j};
+                    }
+                }
+            }
+            return new int[0];
+        }
+    }
+
+//runtime:33 ms
+//memory:38.6 MB
